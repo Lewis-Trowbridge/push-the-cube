@@ -18,3 +18,7 @@ var game = new Game();
 function setCharacter(name) {
     document.cookie = name;
 }
+
+function setProgressBar(percent) {
+    $(".progress-bar").css("width", percent + "%");
+}
