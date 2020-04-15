@@ -14,3 +14,7 @@ class Game {
 }
 
 var game = new Game();
+
+function setCharacter(name) {
+    document.cookie = name;
+}
