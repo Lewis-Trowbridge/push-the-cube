@@ -8,8 +8,11 @@ class Game {
         this.background = new Image();
         this.background.src = "images/background.jpg";
         this.background.onload = () => {
-            this.context.drawImage(this.background, 0, 0);
+            this.updateBackground(-1600);
         }
+    }
+    updateBackground(x) {
+        this.context.drawImage(this.background, x, 0);
     }
 }
 
