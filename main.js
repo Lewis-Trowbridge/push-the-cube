@@ -1,6 +1,6 @@
 "use strict";
 
-var background, canvas, context, pushing;
+var background, canvas, context, id, pushing;
 
 function updateBackground(x) {
     context.drawImage(background, x, 0);
@@ -50,6 +50,14 @@ function start() {
     canvas.height = 448;
     context = canvas.getContext("2d");
     loadBackground();
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = () => {
+        if(request.readyState === 4 && request.status === 200) {
+            id = request.responseText;
+        }
+    }
+    request.open("GET", "serverside/connect.php");
+    request.send();
 }
 
 $().ready(start);
