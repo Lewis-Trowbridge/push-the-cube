@@ -1,6 +1,6 @@
 "use strict";
 
-var background, canvas, context, id, pushing;
+var background, canvas, context, id, instance, pushing;
 
 function updateBackground(x) {
     context.drawImage(background, x, 0);
@@ -40,6 +40,17 @@ document.onkeyup = (event) => {
     if(key === "d") {
         setPushing(false);
     }
+}
+
+function getInstance() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = () => {
+        if(request.readyState === 4 && request.status === 200) {
+            instance = JSON.parse(request.responseText);
+        }
+    }
+    request.open("GET", "serverside/getinstance.php");
+    request.send();
 }
 
 function start() {
