@@ -56,8 +56,14 @@ function start() {
             id = request.responseText;
         }
     }
-    request.open("GET", "serverside/connect.php");
-    request.send();
+    request.open("POST", "serverside/connect.php");
+    request.setRequestHeader(
+        "Content-type", "application/x-www-form-urlencoded"
+    );
+    if(!document.cookie) {
+        setCharacter("monica");
+    }
+    request.send("character=" + document.cookie);
 }
 
 $().ready(start);
