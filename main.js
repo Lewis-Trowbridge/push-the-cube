@@ -51,6 +51,23 @@ document.onkeyup = (event) => {
     }
 }
 
+function connect() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = () => {
+        if(request.readyState === 4 && request.status === 200) {
+            id = request.responseText;
+        }
+    }
+    request.open("POST", "serverside/connect.php");
+    request.setRequestHeader(
+        "Content-type", "application/x-www-form-urlencoded"
+    );
+    if(!document.cookie) {
+        setCharacter("monica");
+    }
+    request.send("character=" + document.cookie);
+}
+
 function getInstance() {
     var request = new XMLHttpRequest();
     request.onreadystatechange = () => {
@@ -70,20 +87,7 @@ function start() {
     canvas.height = 448;
     context = canvas.getContext("2d");
     loadImages();
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = () => {
-        if(request.readyState === 4 && request.status === 200) {
-            id = request.responseText;
-        }
-    }
-    request.open("POST", "serverside/connect.php");
-    request.setRequestHeader(
-        "Content-type", "application/x-www-form-urlencoded"
-    );
-    if(!document.cookie) {
-        setCharacter("monica");
-    }
-    request.send("character=" + document.cookie);
+    connect();
 }
 
 $().ready(start);
