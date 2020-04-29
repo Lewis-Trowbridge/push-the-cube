@@ -1,16 +1,25 @@
 "use strict";
 
-var background, canvas, context, id, instance, pushing;
+var background, canvas, context, cube, id, instance, pushing;
+var characters = {};
 
 function updateBackground(x) {
     context.drawImage(background, x, 0);
 }
 
-function loadBackground() {
+function loadImages() {
     background = new Image();
     background.src = "images/background.jpg";
     background.onload = () => {
         updateBackground(-1600);
+    }
+    cube = new Image();
+    cube.src = "images/cube.png";
+    var name, image;
+    for(name of ["monica", "simeorb", "alex", "james"]) {
+        image = new Image();
+        image.src = "images/" + name + ".png";
+        characters[name] = image;
     }
 }
 
@@ -60,7 +69,7 @@ function start() {
     canvas.width = 800;
     canvas.height = 448;
     context = canvas.getContext("2d");
-    loadBackground();
+    loadImages();
     var request = new XMLHttpRequest();
     request.onreadystatechange = () => {
         if(request.readyState === 4 && request.status === 200) {
