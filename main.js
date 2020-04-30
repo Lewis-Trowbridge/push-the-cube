@@ -23,8 +23,21 @@ function loadImages() {
     }
 }
 
+function setState(character, push) {
+    var request = new XMLHttpRequest();
+    request.open("POST", "serverside/setstate.php");
+    request.setRequestHeader(
+        "Content-type", "application/x-www-form-urlencoded"
+    );
+    request.send(
+        "id=" + id + "&character=" + character +
+        "&pushing=" + (push ? "true" : "false")
+    );
+}
+
 function setCharacter(name) {
     document.cookie = name;
+    setState(name, pushing);
 }
 
 function setProgressBar(percent) {
@@ -34,6 +47,7 @@ function setProgressBar(percent) {
 function setPushing(state) {
     if(pushing !== state) {
         pushing = state;
+        setState(document.cookie, state);
     }
 }
 
