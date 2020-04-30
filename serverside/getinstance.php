@@ -12,7 +12,12 @@ if ($inst && flock($inst, LOCK_SH)) {
             }
         }
     }
-    $data["speed"] = $num_pushing ** 2;
+    $speed = $num_pushing;
+    $data["speed"] = $speed;
+    $progress = file_get_contents("progress.txt");
+    $progress += $speed;
+    file_put_contents("progress.txt", $progress);
+    $data["progress"] = $progress;
     flock($inst, LOCK_UN);
     fclose($inst);
 }
