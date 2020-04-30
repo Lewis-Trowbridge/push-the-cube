@@ -1,15 +1,20 @@
 <?php
 $inst = fopen("instance.csv", "r");
 if ($inst && flock($inst, LOCK_SH)) {
-    $players = [];
+    $num_pushing = 0;
+    $data = [];
     while (!feof($inst)) {
         $row = fgetcsv($inst);
         if ($row) {
-            $players[$row[0]] = array_slice($row, 1);
+            $data[$row[0]] = array_slice($row, 1);
+            if ($row[2] === "true") {
+                $num_pushing++;
+            }
         }
     }
+    $data["speed"] = $num_pushing ** 2;
     flock($inst, LOCK_UN);
     fclose($inst);
 }
-echo json_encode($players);
+echo json_encode($data);
 ?>
