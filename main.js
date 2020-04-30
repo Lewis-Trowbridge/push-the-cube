@@ -84,12 +84,17 @@ function connect() {
     request.send("character=" + document.cookie);
 }
 
+function updateGame() {
+    updateBackground();
+    context.drawImage(cube, 280, 200);
+}
+
 function getInstance() {
     var request = new XMLHttpRequest();
     request.onreadystatechange = () => {
         if(request.readyState === 4 && request.status === 200) {
             instance = JSON.parse(request.responseText);
-            updateBackground();
+            updateGame();
         }
     }
     request.open("GET", "serverside/getinstance.php");
