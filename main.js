@@ -3,7 +3,8 @@
 var background, canvas, context, cube, id, instance, pushing;
 var characters = {};
 
-function updateBackground(x) {
+function updateBackground() {
+    var x = -Math.floor(instance["progress"] / 10) % 1600;
     context.drawImage(background, x, 0);
 }
 
@@ -11,7 +12,7 @@ function loadImages() {
     background = new Image();
     background.src = "images/background.jpg";
     background.onload = () => {
-        updateBackground(-1600);
+        context.drawImage(background, 0, 0);
     }
     cube = new Image();
     cube.src = "images/cube.png";
@@ -70,6 +71,7 @@ function connect() {
     request.onreadystatechange = () => {
         if(request.readyState === 4 && request.status === 200) {
             id = request.responseText;
+            console.log(setInterval(getInstance, 200));
         }
     }
     request.open("POST", "serverside/connect.php");
@@ -87,6 +89,7 @@ function getInstance() {
     request.onreadystatechange = () => {
         if(request.readyState === 4 && request.status === 200) {
             instance = JSON.parse(request.responseText);
+            updateBackground();
         }
     }
     request.open("GET", "serverside/getinstance.php");
