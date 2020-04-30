@@ -1,6 +1,6 @@
 "use strict";
 
-var background, canvas, context, cube, id, instance, pushing;
+var background, canvas, context, cube, my_character, id, instance, pushing;
 var characters = {};
 
 var positions = {
@@ -44,7 +44,7 @@ function setState(character, push) {
 }
 
 function setCharacter(name) {
-    document.cookie = name;
+    my_character = name;
     setState(name, pushing);
 }
 
@@ -55,7 +55,7 @@ function setProgressBar(percent) {
 function setPushing(state) {
     if(pushing !== state) {
         pushing = state;
-        setState(document.cookie, state);
+        setState(my_character, state);
     }
 }
 
@@ -85,10 +85,10 @@ function connect() {
     request.setRequestHeader(
         "Content-type", "application/x-www-form-urlencoded"
     );
-    if(!document.cookie) {
+    if(!my_character) {
         setCharacter("monica");
     }
-    request.send("character=" + document.cookie);
+    request.send("character=" + my_character);
 }
 
 function updateGame() {
