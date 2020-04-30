@@ -106,6 +106,7 @@ function updateGame() {
             );
         }
     }
+    setProgressBar(Math.floor(instance["progress"] / 1000));
 }
 
 function getInstance() {
