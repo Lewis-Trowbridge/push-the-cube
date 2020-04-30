@@ -90,4 +90,10 @@ function start() {
     connect();
 }
 
+window.onbeforeunload = (event) => {
+    var data = new FormData();
+    data.append("id", id);
+    navigator.sendBeacon("serverside/disconnect.php", data);
+}
+
 $().ready(start);
