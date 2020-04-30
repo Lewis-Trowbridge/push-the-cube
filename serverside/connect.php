@@ -2,7 +2,7 @@
 $inst = fopen("instance.csv", "a+");
 if ($inst && flock($inst, LOCK_EX)) {
     $id = rand();
-    fputcsv($inst, [$id, $_POST["character"]]);
+    fputcsv($inst, [$id, $_POST["character"], "false"]);
     flock($inst, LOCK_UN);
     fclose($inst);
 }
