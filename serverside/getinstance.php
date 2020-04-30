@@ -15,9 +15,14 @@ if ($inst && flock($inst, LOCK_SH)) {
     $speed = $num_pushing;
     $data["speed"] = $speed;
     $progress = file_get_contents("progress.txt");
-    $progress += $speed;
-    file_put_contents("progress.txt", $progress);
-    $data["progress"] = $progress;
+    if (is_numeric($progress)) {
+        $progress += $speed;
+        file_put_contents("progress.txt", $progress);
+        $data["progress"] = $progress;
+    }
+    else {
+        $data["debug"] = $progress;
+    }
     flock($inst, LOCK_UN);
     fclose($inst);
 }
