@@ -3,6 +3,13 @@
 var background, canvas, context, cube, id, instance, pushing;
 var characters = {};
 
+var positions = {
+    "monica": [225, 320],
+    "simeorb": [230, 280],
+    "alex": [275, 285],
+    "james": [275, 285]
+};
+
 function updateBackground() {
     var x = -Math.floor(instance["progress"] / 10) % 1600;
     context.drawImage(background, x, 0);
@@ -87,6 +94,18 @@ function connect() {
 function updateGame() {
     updateBackground();
     context.drawImage(cube, 280, 200);
+    var id, player, character, is_pushing, image, x, y;
+    for (id in instance) {
+        player = instance[id];
+        if (Array.isArray(player)) {
+            [character, is_pushing] = player;
+            [x, y] = positions[character];
+            image = characters[character];
+            context.drawImage(
+                image, x + (is_pushing === "true" ? 4 : 0), y
+            );
+        }
+    }
 }
 
 function getInstance() {
