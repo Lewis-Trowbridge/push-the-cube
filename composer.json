@@ -1,0 +1,13 @@
+{
+    "name": "blujupiter32/push-the-cube",
+    "description": "push the cube",
+    "type": "project",
+    "license": "The Unlicense",
+    "authors": [
+        {
+            "name": "Daniel Trowbridge",
+            "email": "blujupiter32@gmail.com"
+        }
+    ],
+    "require": {}
+}
